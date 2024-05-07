@@ -1,0 +1,52 @@
+---
+// Import necessary Node.js modules
+import Assets from "../components/assets.astro";
+import Layout from "../layouts/layout.astro";
+import fs from "fs";
+import path from "path";
+
+// Define the paths to the directories
+const imagesDir = path.join(process.cwd(), "public", "images");
+const cssDir = path.join(process.cwd(), "public", "css");
+const jsDir = path.join(process.cwd(), "public", "js");
+
+// Function to read and sort files by last modified date, including type
+function getFilesSortedByDate(dir: string, type: string) {
+  const files = fs.readdirSync(dir).map((file) => ({
+    name: file,
+    modified: fs.statSync(path.join(dir, file)).mtime,
+    type: type, // Add type property
+  }));
+
+  return files.sort((a, b) => b.modified.getTime() - a.modified.getTime());
+}
+
+// Read and sort the contents of the directories, including type
+const sortedImages = getFilesSortedByDate(imagesDir, "images");
+const sortedCss = getFilesSortedByDate(cssDir, "css");
+const sortedJs = getFilesSortedByDate(jsDir, "js");
+
+// Combine and sort all assets
+const allAssets = [...sortedImages, ...sortedCss, ...sortedJs].sort(
+  () => Math.random() - 0.5
+);
+---
+
+<Layout title="Home">
+  <body>
+    <h1 class="font-bold text-xl text-center text-purple-400">
+      TeaClient Assets
+    </h1>
+    <section>
+      <ul>
+        {
+          allAssets.map((asset) => (
+            <li>
+              <Assets asset={asset} />
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </body>
+</Layout>

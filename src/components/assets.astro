@@ -1,0 +1,130 @@
+---
+import { Image } from "astro:assets";
+interface Props {
+  asset: Asset;
+}
+
+interface Asset {
+  name: string;
+  modified: Date;
+  type: string; // Adjusted to allow any string value
+}
+
+const { asset } = Astro.props as Props;
+---
+
+<div
+  class="bg-gradient-to-r from-indigo-950 to-purple-950 rounded-xl p-2 w-60 text-center"
+>
+  <!-- Image or Asset Comp -->
+  {
+    asset.type === "images" && (
+      <Image
+        src={`/images/${asset.name}`}
+        class="rounded-2xl"
+        alt={asset.name}
+        width={300}
+        height={100}
+      />
+    )
+  }
+  {
+    asset.type !== "images" && (
+      <a href={`${asset.type}/${asset.name}`}>{asset.name}</a>
+    )
+  }
+
+  <!-- Date, time and etc -->
+  <div
+    class="modify-info hidden text-center text-white bg-indigo-300 rounded-xl p-1"
+  >
+    {
+      asset.modified.toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false, // Use 24-hour format
+      })
+    }
+  </div>
+  <!-- Copy Url Button -->
+  {
+    asset.type === "images" && (
+      <div class="copy-info hidden text-center text-white bg-indigo-700 hover:bg-indigo-500 rounded-xl p-1">
+        <input
+          type="text"
+          value={`https://assets.teaclient.net/${asset.type}/${asset.name}`}
+          id="urlToCopy"
+          class="hidden"
+        />
+        <button type="button" id="copyButton">
+          Copy URL
+        </button>
+      </div>
+    )
+  }
+  <button type="button" id="toggleModified">Show Info</button>
+</div>
+
+<script>
+  // Declare and initialize showModified
+  let showModified = false;
+
+  const button = document.getElementById("toggleModified") as HTMLButtonElement;
+  const modifyInfo = document.querySelector(".modify-info") as HTMLDivElement;
+  const copyInfo = document.querySelector(".copy-info") as HTMLDivElement;
+
+  // Attach an event listener to the button
+  button.addEventListener("click", () => {
+    showModified = !showModified;
+    button.textContent = showModified ? "Hide Info" : "Show Info";
+    modifyInfo.style.display = showModified ? "block" : "none";
+    copyInfo.style.display = showModified ? "block" : "none";
+  });
+
+  document.addEventListener("DOMContentLoaded", () => {
+    // Get the button and input elements
+    const copyButton = document.getElementById(
+      "copyButton"
+    ) as HTMLButtonElement;
+    const urlToCopy = document.getElementById("urlToCopy") as HTMLInputElement;
+
+    // Check if the elements are correctly identified
+    if (!copyButton || !urlToCopy) {
+      console.error("Button or input field not found");
+      return;
+    }
+
+    // Attach an event listener to the button
+    copyButton.addEventListener("click", () => {
+      // Select the text in the input field
+      urlToCopy.select();
+      urlToCopy.setSelectionRange(0, 99999); // For mobile devices
+
+      try {
+        navigator.clipboard
+          .writeText(urlToCopy.value)
+          .then(() => {
+            // Change the button text to "Copied"
+            copyButton.textContent = "Copied";
+            // Add class to change background color
+            copyInfo.classList.add("bg-indigo-500");
+
+            // Revert the button text back to "Copy URL" after 2 seconds
+            setTimeout(() => {
+              copyButton.textContent = "Copy URL";
+              // Remove the class to revert the background color
+              copyInfo.classList.remove("bg-indigo-500");
+            }, 2000); // 2000 milliseconds = 2 seconds
+          })
+          .catch((err) => {
+            console.error("Failed to copy text: ", err);
+          });
+      } catch (err) {
+        console.error("Failed to copy text: ", err);
+      }
+    });
+  });
+</script>
