@@ -3,7 +3,7 @@ name: Deploy Assets Website
 on:
  push:
   branches:
-   - main
+   - stable
  workflow_dispatch:
 
 
