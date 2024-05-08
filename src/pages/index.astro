@@ -2,8 +2,8 @@
 // Import necessary Node.js modules
 import Assets from "../components/assets.astro";
 import Layout from "../layouts/layout.astro";
-import fs from "fs";
-import path from "path";
+import fs from "node:fs";
+import path from "node:path";
 
 // Function to safely join paths and handle errors
 function safeJoinPath(...paths: string[]) {
