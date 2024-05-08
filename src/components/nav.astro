@@ -2,10 +2,17 @@
 // Import any necessary components or styles here
 ---
 
-<nav class="bg-gray-800 text-white p-4">
+<nav class="bg-neutral-400 dark:bg-neutral-800 bg-opacity-30 text-white p-4">
   <div class="flex justify-between items-center">
-    <a href="/" class="text-2xl font-bold">TeaClient Assets Hosting</a>
+    <a href="/" class="text-2xl font-bold">TeaClient Assets</a>
     <div class="space-x-4">
+      <!-- Add a button for toggling theme -->
+      <button
+        id="theme-toggle"
+        class="bg-neutral-800 dark:bg-slate-100 dark:text-gray-800 font-bold py-2 px-4 rounded"
+      >
+        Dark
+      </button>
       <a href="https://teaclient.net" class="hover:text-gray-300">Home</a>
       <a href="https://docs.teaclient.net" class="hover:text-gray-300">Docs</a>
       <a href="https://teaclient.net/news" class="hover:text-gray-300">News</a>
@@ -13,3 +20,5 @@
     </div>
   </div>
 </nav>
+
+<script src="../scripts/darkmode.ts"></script>

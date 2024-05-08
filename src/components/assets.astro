@@ -1,13 +1,11 @@
 ---
 import { Image } from "astro:assets";
 interface Props {
-  asset: Asset;
-}
-
-interface Asset {
-  name: string;
-  modified: Date;
-  type: string; // Adjusted to allow any string value
+  asset: {
+    name: string;
+    modified: Date;
+    type: string; // Adjusted to allow any string value
+  };
 }
 
 const { asset } = Astro.props as Props;
@@ -72,63 +70,4 @@ const { asset } = Astro.props as Props;
   <button type="button" id="toggleModified">Show Info</button>
 </div>
 
-<script>
-  // Declare and initialize showModified
-  let showModified = false;
-
-  const button = document.getElementById("toggleModified") as HTMLButtonElement;
-  const modifyInfo = document.querySelector(".modify-info") as HTMLDivElement;
-  const copyInfo = document.querySelector(".copy-info") as HTMLDivElement;
-
-  // Attach an event listener to the button
-  button.addEventListener("click", () => {
-    showModified = !showModified;
-    button.textContent = showModified ? "Hide Info" : "Show Info";
-    modifyInfo.style.display = showModified ? "block" : "none";
-    copyInfo.style.display = showModified ? "block" : "none";
-  });
-
-  document.addEventListener("DOMContentLoaded", () => {
-    // Get the button and input elements
-    const copyButton = document.getElementById(
-      "copyButton"
-    ) as HTMLButtonElement;
-    const urlToCopy = document.getElementById("urlToCopy") as HTMLInputElement;
-
-    // Check if the elements are correctly identified
-    if (!copyButton || !urlToCopy) {
-      console.error("Button or input field not found");
-      return;
-    }
-
-    // Attach an event listener to the button
-    copyButton.addEventListener("click", () => {
-      // Select the text in the input field
-      urlToCopy.select();
-      urlToCopy.setSelectionRange(0, 99999); // For mobile devices
-
-      try {
-        navigator.clipboard
-          .writeText(urlToCopy.value)
-          .then(() => {
-            // Change the button text to "Copied"
-            copyButton.textContent = "Copied";
-            // Add class to change background color
-            copyInfo.classList.add("bg-indigo-500");
-
-            // Revert the button text back to "Copy URL" after 2 seconds
-            setTimeout(() => {
-              copyButton.textContent = "Copy URL";
-              // Remove the class to revert the background color
-              copyInfo.classList.remove("bg-indigo-500");
-            }, 2000); // 2000 milliseconds = 2 seconds
-          })
-          .catch((err) => {
-            console.error("Failed to copy text: ", err);
-          });
-      } catch (err) {
-        console.error("Failed to copy text: ", err);
-      }
-    });
-  });
-</script>
+<script src="../scripts/assetScript.ts"></script>
