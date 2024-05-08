@@ -54,14 +54,22 @@ document.addEventListener("DOMContentLoaded", () => {
 		toggleButton.addEventListener("click", () => {
 			const showModified = toggleButton.textContent === "Show Info";
 			toggleButton.textContent = showModified ? "Hide Info" : "Show Info";
-			toggleDisplay(modifyInfos[index], showModified);
-			toggleDisplay(copyInfos[index], showModified);
+			if (modifyInfos[index]) {
+				toggleDisplay(modifyInfos[index] as HTMLElement, showModified);
+			}
+			if (copyInfos[index]) {
+				toggleDisplay(copyInfos[index] as HTMLElement, showModified);
+			}
 		});
 	});
 
 	copyButtons.forEach((copyButton, index) => {
-		copyButton.addEventListener("click", () =>
-			handleCopyButtonClick(copyButton, urlToCopies[index], copyInfos[index]),
-		);
+		const urlToCopyElement = urlToCopies[index];
+		const copyInfoElement = copyInfos[index];
+		if (urlToCopyElement && copyInfoElement) {
+			copyButton.addEventListener("click", () =>
+				handleCopyButtonClick(copyButton, urlToCopyElement, copyInfoElement),
+			);
+		}
 	});
 });
