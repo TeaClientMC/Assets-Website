@@ -17,7 +17,18 @@ const { title } = Astro.props;
       rel="stylesheet"
     />
   </head>
-  <body class="bg-neutral-900 text-white">
+  <body class="text-white">
+    <div class="page-background">
+      <img
+        class="fixed top-0 left-0 w-full h-full object-cover object-center -z-10 pointer-events-none [-webkit-user-drag: none] select-none"
+        id="background-image"
+        src="/images/website-background.webp"
+        alt="The background"
+        loading="lazy"
+        decoding="async"
+      />
+    </div>
+
     <Nav />
     <slot />
   </body>
