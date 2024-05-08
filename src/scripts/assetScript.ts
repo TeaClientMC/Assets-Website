@@ -29,27 +29,39 @@ function handleCopyButtonClick(
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-	const toggleButton = document.getElementById(
-		"toggleModified",
-	) as HTMLButtonElement;
-	const modifyInfo = document.querySelector(".modify-info") as HTMLDivElement;
-	const copyInfo = document.querySelector(".copy-info") as HTMLDivElement;
-	const copyButton = document.getElementById("copyButton") as HTMLButtonElement;
-	const urlToCopy = document.getElementById("urlToCopy") as HTMLInputElement;
+	const toggleButtons = document.querySelectorAll(
+		".toggleModified",
+	) as NodeListOf<HTMLButtonElement>;
+	const modifyInfos = document.querySelectorAll(
+		".modify-info",
+	) as NodeListOf<HTMLDivElement>;
+	const copyInfos = document.querySelectorAll(
+		".copy-info",
+	) as NodeListOf<HTMLDivElement>;
+	const copyButtons = document.querySelectorAll(
+		"#copyButton",
+	) as NodeListOf<HTMLButtonElement>;
+	const urlToCopies = document.querySelectorAll(
+		"#urlToCopy",
+	) as NodeListOf<HTMLInputElement>;
 
-	if (!copyButton || !urlToCopy) {
-		console.error("Button or input field not found");
+	if (copyButtons.length !== urlToCopies.length) {
+		console.error("Mismatch in the number of copy buttons and input fields");
 		return;
 	}
 
-	toggleButton.addEventListener("click", () => {
-		const showModified = toggleButton.textContent === "Show Info";
-		toggleButton.textContent = showModified ? "Hide Info" : "Show Info";
-		toggleDisplay(modifyInfo, showModified);
-		toggleDisplay(copyInfo, showModified);
+	toggleButtons.forEach((toggleButton, index) => {
+		toggleButton.addEventListener("click", () => {
+			const showModified = toggleButton.textContent === "Show Info";
+			toggleButton.textContent = showModified ? "Hide Info" : "Show Info";
+			toggleDisplay(modifyInfos[index], showModified);
+			toggleDisplay(copyInfos[index], showModified);
+		});
 	});
 
-	copyButton.addEventListener("click", () =>
-		handleCopyButtonClick(copyButton, urlToCopy, copyInfo),
-	);
+	copyButtons.forEach((copyButton, index) => {
+		copyButton.addEventListener("click", () =>
+			handleCopyButtonClick(copyButton, urlToCopies[index], copyInfos[index]),
+		);
+	});
 });
