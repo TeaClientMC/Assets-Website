@@ -97,7 +97,7 @@ const allAssets = [...sortedImages, ...sortedCss, ...sortedJs].sort(
 <Layout title="Home">
   <body>
     <section class="mt-1 w-full h-full">
-      <ul class="flex flex-row w-full">
+      <ul class="flex sm:flex-col lg:flex-row overflow-hidden h-full w-full">
         {
           allAssets.map((asset) => (
             <li class="w-60">
