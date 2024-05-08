@@ -52,17 +52,21 @@ const { asset } = Astro.props as Props;
   <!-- Copy Url Button -->
   {
     asset.type === "images" && (
-      <div class="copy-info hidden text-center text-white bg-indigo-700 hover:bg-indigo-500 rounded-xl p-1">
+      <>
         <input
           type="text"
           value={`https://assets.teaclient.net/${asset.type}/${asset.name}`}
           id="urlToCopy"
           class="hidden"
         />
-        <button type="button" id="copyButton">
+        <button
+          type="button"
+          class="copy-info hidden text-center text-white w-full bg-indigo-700 hover:bg-indigo-500 rounded-xl p-1"
+          id="copyButton"
+        >
           Copy URL
         </button>
-      </div>
+      </>
     )
   }
   <button type="button" id="toggleModified">Show Info</button>
