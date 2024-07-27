@@ -1,24 +1,27 @@
 {
-	"name": "magenta-mass",
-	"type": "module",
-	"version": "0.0.1",
-	"scripts": {
-		"dev": "astro dev",
-		"start": "astro dev",
-		"build": "astro check && astro build",
-		"preview": "astro preview",
-		"astro": "astro"
-	},
-	"dependencies": {
-		"@astrojs/check": "^0.5.10",
-		"@astrojs/mdx": "^2.3.1",
-		"@astrojs/tailwind": "^5.1.0",
-		"@playform/compress": "^0.0.3",
-		"astro": "^4.7.1",
-		"tailwindcss": "^3.4.3",
-		"typescript": "^5.4.5"
-	},
-	"devDependencies": {
-		"@types/bun": "^1.1.1"
-	}
+  "name": "magenta-mass",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.5.10",
+    "@astrojs/mdx": "^2.3.1",
+    "@astrojs/tailwind": "^5.1.0",
+    "@playform/compress": "^0.0.3",
+    "astro": "^4.7.1",
+    "express": "^4.19.2",
+    "http": "^0.0.1-security",
+    "tailwindcss": "^3.4.3",
+    "typescript": "^5.4.5"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.1.1",
+    "@types/express": "^4.17.21"
+  }
 }
