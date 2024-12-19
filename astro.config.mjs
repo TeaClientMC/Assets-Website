@@ -7,6 +7,12 @@ import tailwind from "@astrojs/tailwind";
 export default defineConfig({
 	output: "static",
 	site: "https://assets.teaclient.net",
+	redirects: {
+	   '/': {
+		  status: 301,
+		  destination: 'https://teaclient.net/wiki',
+	  },
+	},
 	integrations: [
 		mdx(),
 		tailwind(),
