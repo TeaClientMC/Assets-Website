@@ -10,7 +10,7 @@ export default defineConfig({
 	redirects: {
 	   '/': {
 		  status: 301,
-		  destination: 'https://teaclient.net/wiki',
+		  destination: 'https://teaclient.net',
 	  },
 	},
 	integrations: [
